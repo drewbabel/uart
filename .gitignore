@@ -1,0 +1,18 @@
+*.vcd
+sim
+build/
+.DS_Store
+.vscode/
+
+# cocotb
+sim_build/
+__pycache__/
+*.pyc
+results.xml
+
+# FPGA build artifacts (yosys / nextpnr / prjxray / openFPGALoader)
+*.bit
+*.frames
+*.fasm
+*.json
+*.log
