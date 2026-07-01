@@ -60,6 +60,6 @@ module tick_gen_tb ();
   end
 
   always @(negedge clk) begin
-    if (~rst) check(tick, (cnt % DIVISOR == DIVISOR - 2));
+    if (~rst) check(tick, (cnt % DIVISOR == DIVISOR - 1));
   end
 endmodule
