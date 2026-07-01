@@ -1,0 +1,22 @@
+[tasks]
+prove
+cover
+
+[options]
+prove: mode prove
+cover: mode cover
+cover: depth 20
+
+[engines]
+smtbmc z3
+
+[script]
+read -formal synchronizer.sv
+read -formal tick_gen.sv
+read -formal uart_rx.sv
+prep -top uart_rx
+
+[files]
+rtl/synchronizer.sv
+rtl/tick_gen.sv
+rtl/uart_rx.sv

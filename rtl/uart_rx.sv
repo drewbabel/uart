@@ -124,4 +124,27 @@ module uart_rx #(
     endcase
   end
 
+`ifdef FORMAL
+  logic f_past_valid = 0;
+  initial assume (!rst_n);
+  initial assume (state == IDLE);
+  initial assume (!(rx_valid && rx_error));
+
+  always @(posedge clk) begin
+    f_past_valid <= 1'b1;
+    cover (state == START);  // Ensure reachable in a few cycles
+
+    // $past has no valid history on cycle 0 (use f_past_valid register)
+    if (f_past_valid) begin
+      assert (!(rx_valid && $past(rx_valid)));
+      assert (!(rx_error && $past(rx_error)));
+
+      assert (!(!$past(rst_n) && rx_valid));
+      assert (!(!$past(rst_n) && rx_error));
+    end
+
+    assert (!(rx_valid && rx_error));
+  end
+`endif
+
 endmodule
