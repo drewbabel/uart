@@ -13,3 +13,5 @@ jobs:
         run: make MOD=synchronizer
       - name: tick_gen
         run: make MOD=tick_gen
+      - name: uart_rx
+        run: make MOD=uart_rx
