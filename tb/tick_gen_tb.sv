@@ -86,6 +86,6 @@ module tick_gen_tb ();
   end
 
   always @(negedge clk) begin
-    if (rst_n) check(tick, (phase == DIVISOR - 2));
+    if (rst_n) check(tick, (phase == DIVISOR - 1));
   end
 endmodule
