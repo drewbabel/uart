@@ -4,6 +4,9 @@ build/
 .DS_Store
 .vscode/
 
+#SymbiYosys work directories
+formal/*/
+
 # cocotb
 sim_build/
 __pycache__/
