@@ -19,6 +19,8 @@ jobs:
         run: make MOD=uart_tx
       - name: uart
         run: make MOD=uart
+      - name: board demo (seven_seg + debounce + top)
+        run: make -C boards/basys3 test
 
   formal:
     runs-on: ubuntu-latest
