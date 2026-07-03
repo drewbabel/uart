@@ -102,6 +102,7 @@ module uart_tx #(
       default: next_state = IDLE;
     endcase
 
+    if (!rst_n) tx_ready = 1'b0;
     tick_clr = (state != next_state) ? 1'b1 : 1'b0;
   end
 
