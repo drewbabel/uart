@@ -106,4 +106,24 @@ module uart_tx #(
     tick_clr = (state != next_state) ? 1'b1 : 1'b0;
   end
 
+`ifdef FORMAL
+  logic f_past_valid = 0;
+  initial assume (!rst_n);
+  initial assume (tx_serial);
+  initial assume (state == IDLE);
+
+  always @(posedge clk) begin
+    f_past_valid <= 1'b1;
+    cover (state == START);  // Ensure reachable in a few cycles
+
+    assert (!((state == START || state == DATA) && tx_ready));
+    assert (!(state == IDLE) || tx_serial);
+
+    assert (rst_n || !tx_ready);
+    if (f_past_valid) begin  // $past has no valid history on cycle 0 (use f_past_valid register)
+      assert ($past(rst_n) || tx_serial);
+    end
+  end
+`endif
+
 endmodule
