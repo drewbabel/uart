@@ -15,3 +15,5 @@ jobs:
         run: make MOD=tick_gen
       - name: uart_rx
         run: make MOD=uart_rx
+      - name: uart_tx
+        run: make MOD=uart_tx
