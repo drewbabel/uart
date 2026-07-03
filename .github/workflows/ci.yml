@@ -17,3 +17,16 @@ jobs:
         run: make MOD=uart_rx
       - name: uart_tx
         run: make MOD=uart_tx
+
+  formal:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install OSS CAD Suite (yosys + sby + solvers)
+        uses: YosysHQ/setup-oss-cad-suite@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: uart_rx formal
+        run: make formal MOD=uart_rx
+      - name: uart_tx formal
+        run: make formal MOD=uart_tx
