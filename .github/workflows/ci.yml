@@ -21,6 +21,10 @@ jobs:
         run: make MOD=uart
       - name: board demo (seven_seg + debounce + top)
         run: make -C boards/basys3 test
+      - name: Install cocotb
+        run: pip install cocotb
+      - name: cocotb top-level loopback
+        run: make cocotb
 
   formal:
     runs-on: ubuntu-latest

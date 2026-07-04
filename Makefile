@@ -4,6 +4,7 @@
 #   make MOD=synchronizer         compile rtl/ + that tb, run; a test FAIL exits nonzero
 #   make wave MOD=synchronizer    same, then open the waveform in surfer (opens even on FAIL)
 #   make formal MOD=uart_rx       run every SymbiYosys task in formal/$(MOD).sby; a FAIL exits nonzero
+#   make cocotb                   run the Python top-level testbench (tb/test_uart.py) on the UART core
 #   make clean                    delete build artifacts (build/, *.vcd)
 
 RTL := $(wildcard rtl/*.sv)
@@ -29,8 +30,11 @@ formal:
 	@test -n "$(MOD)" || { echo "usage: make formal MOD=<module>  (e.g. MOD=uart_rx)"; exit 1; }
 	sby -f $(FORMAL)
 
+cocotb:
+	$(MAKE) -f cocotb.mk
+
 clean:
-	rm -rf build *.vcd
+	rm -rf build *.vcd sim_build results.xml
 
 .DEFAULT_GOAL := run
-.PHONY: run wave formal clean
+.PHONY: run wave formal cocotb clean
