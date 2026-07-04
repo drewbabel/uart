@@ -31,6 +31,7 @@ formal:
 	sby -f $(FORMAL)
 
 cocotb:
+	rm -rf sim_build results.xml
 	$(MAKE) -f cocotb.mk
 
 clean:
