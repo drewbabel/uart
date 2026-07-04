@@ -22,10 +22,10 @@ module debounce_counter_tb ();
   );
 
   task automatic do_reset();
-    #1 rst_n = 0;
+    #1 rst_n = 1'b0;
     @(posedge clk);
     @(posedge clk);
-    #1 rst_n = 1;
+    #1 rst_n = 1'b1;
     @(posedge clk);
   endtask  // Automatic
 
@@ -45,21 +45,21 @@ module debounce_counter_tb ();
 
     // Led scale test
     repeat (15) begin
-      #1 btn_in = 1;
+      #1 btn_in = 1'b1;
       repeat (15) @(posedge clk);
-      #1 expected_led = expected_led + 1;
+      #1 expected_led = expected_led + 1'b1;
       check_led();
-      #1 btn_in = 0;
+      #1 btn_in = 1'b0;
       repeat (15) @(posedge clk);
       check_led();
     end
 
     // Short chatter test
     repeat (20) begin
-      #1 btn_in = 1;
+      #1 btn_in = 1'b1;
       repeat ($urandom_range(1, 3)) @(posedge clk);
       check_led();
-      #1 btn_in = 0;
+      #1 btn_in = 1'b0;
       repeat ($urandom_range(1, 3)) @(posedge clk);
       check_led();
     end

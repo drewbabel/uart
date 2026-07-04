@@ -31,8 +31,8 @@ module seven_seg_cntrl #(
 
   // Refresh counter (~1.52 kHz cnt from 100 MHz clk)
   always_ff @(posedge clk) begin
-    if (!rst_n) cnt <= 0;
-    else cnt <= cnt + 1;
+    if (!rst_n) cnt <= '0;
+    else cnt <= cnt + 1'b1;
   end
 
   // Digit selector (anode)

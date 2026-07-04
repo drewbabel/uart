@@ -50,10 +50,10 @@ module seven_seg_cntrl_tb ();
   endfunction
 
   task automatic do_reset();
-    rst_n = 0;
+    rst_n = 1'b0;
     @(posedge clk);
     @(posedge clk);
-    rst_n = 1;
+    rst_n = 1'b1;
   endtask  // Automatic
 
   task automatic check_an(input logic [3:0] an, input logic [3:0] exp_an);

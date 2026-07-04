@@ -25,14 +25,14 @@ module debounce_counter #(
   // Debouncer
   always_ff @(posedge clk) begin
     if (!rst_n) begin
-      cnt       <= 0;
-      btn_clean <= 0;
+      cnt       <= '0;
+      btn_clean <= 1'b0;
     end else if (btn_s2 != btn_clean) begin  // input differs -> time how long
       if (cnt == DEBOUNCE_MAX) begin
-        cnt       <= 0;
+        cnt       <= '0;
         btn_clean <= btn_s2;
-      end else cnt <= cnt + 1;
-    end else cnt <= 0;
+      end else cnt <= cnt + 1'b1;
+    end else cnt <= '0;
   end
 
   // Edge detector
@@ -41,8 +41,8 @@ module debounce_counter #(
 
   // Press counter
   always_ff @(posedge clk) begin
-    if (!rst_n) scale <= 0;
-    else if (btn_press) scale <= scale + 1;
+    if (!rst_n) scale <= '0;
+    else if (btn_press) scale <= scale + 1'b1;
   end
 
   assign led = scale;

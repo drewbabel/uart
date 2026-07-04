@@ -28,20 +28,20 @@ module basys3_top_tb ();
   );
 
   task automatic do_reset();
-    rst_n = 0;
-    send_btn = 0;
-    sw = 0;
+    rst_n = 1'b0;
+    send_btn = 1'b0;
+    sw = '0;
     repeat (5) @(posedge clk);
-    rst_n = 1;
+    rst_n = 1'b1;
   endtask  // Automatic
 
   // Press once, wait for loopback frame, check received byte + no error
   task automatic send_and_check(input logic [7:0] b);
     sw = b;
     @(posedge clk);
-    send_btn = 1;
+    send_btn = 1'b1;
     repeat (DebMax + 8) @(posedge clk);  // Hold long enough to debounce + fire the pulse
-    send_btn = 0;
+    send_btn = 1'b0;
     repeat (12000) @(posedge clk);  // One 115200-baud frame is ~8680 clks
 
     checks++;
