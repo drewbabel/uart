@@ -1,0 +1,90 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="uart" id="uart">
+    <mxGraphModel grid="0" gridSize="10" pageWidth="1120" pageHeight="720" background="#ffffff">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Outer boundary -->
+        <mxCell id="outer" value="" vertex="1" parent="1"
+          style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#000000;strokeWidth=2;"><mxGeometry x="295" y="60" width="570" height="578" as="geometry"/></mxCell>
+        <mxCell id="outer-lbl" value="uart" vertex="1" parent="1"
+          style="text;html=1;align=left;verticalAlign=middle;fontStyle=1;fontSize=17;fillColor=none;strokeColor=none;"><mxGeometry x="301" y="34" width="120" height="22" as="geometry"/></mxCell>
+
+        <!-- Groups -->
+        <mxCell id="grptx" value="uart_tx" vertex="1" parent="1"
+          style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#000000;dashed=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;fontStyle=1;fontSize=14;"><mxGeometry x="475" y="101" width="210" height="235" as="geometry"/></mxCell>
+        <mxCell id="grprx" value="uart_rx" vertex="1" parent="1"
+          style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#000000;dashed=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;fontStyle=1;fontSize=14;"><mxGeometry x="350" y="383" width="460" height="230" as="geometry"/></mxCell>
+
+        <!-- Blocks -->
+        <mxCell id="txtick" value="tick_gen&#10;(baud rate)" vertex="1" parent="1"
+          style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f2f2f2;strokeColor=#000000;strokeWidth=1.5;align=center;verticalAlign=middle;fontSize=16;"><mxGeometry x="495" y="113" width="170" height="70" as="geometry"/></mxCell>
+        <mxCell id="txfsm" value="TX FSM&#10;shift register" vertex="1" parent="1"
+          style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f2f2f2;strokeColor=#000000;strokeWidth=1.5;align=center;verticalAlign=middle;fontSize=16;"><mxGeometry x="495" y="228" width="170" height="90" as="geometry"/></mxCell>
+        <mxCell id="sync" value="synchronizer&#10;(2-FF)" vertex="1" parent="1"
+          style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f2f2f2;strokeColor=#000000;strokeWidth=1.5;align=center;verticalAlign=middle;fontSize=16;"><mxGeometry x="370" y="405" width="170" height="70" as="geometry"/></mxCell>
+        <mxCell id="rxfsm" value="RX FSM&#10;shift register" vertex="1" parent="1"
+          style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f2f2f2;strokeColor=#000000;strokeWidth=1.5;align=center;verticalAlign=middle;fontSize=16;"><mxGeometry x="620" y="395" width="170" height="90" as="geometry"/></mxCell>
+        <mxCell id="rxtick" value="tick_gen&#10;(oversample)" vertex="1" parent="1"
+          style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f2f2f2;strokeColor=#000000;strokeWidth=1.5;align=center;verticalAlign=middle;fontSize=16;"><mxGeometry x="620" y="525" width="170" height="70" as="geometry"/></mxCell>
+
+        <!-- Left input labels (control right-edge x=250; bus tx_data right-edge x=215) -->
+        <mxCell id="io-txdata" value="tx_data"  vertex="1" parent="1" style="text;html=1;align=center;verticalAlign=middle;fontSize=17;fillColor=none;strokeColor=none;"><mxGeometry x="137" y="245" width="78" height="22" as="geometry"/></mxCell>
+        <mxCell id="io-txvalid" value="tx_valid" vertex="1" parent="1" style="text;html=1;align=center;verticalAlign=middle;fontSize=17;fillColor=none;strokeColor=none;"><mxGeometry x="182" y="279" width="68" height="22" as="geometry"/></mxCell>
+        <mxCell id="io-clk"    value="clk"      vertex="1" parent="1" style="text;html=1;align=center;verticalAlign=middle;fontSize=17;fillColor=none;strokeColor=none;"><mxGeometry x="210" y="329" width="40" height="22" as="geometry"/></mxCell>
+        <mxCell id="io-rstn"   value="rst_n"    vertex="1" parent="1" style="text;html=1;align=center;verticalAlign=middle;fontSize=17;fillColor=none;strokeColor=none;"><mxGeometry x="198" y="379" width="52" height="22" as="geometry"/></mxCell>
+        <mxCell id="io-rxserial" value="rx_serial" vertex="1" parent="1" style="text;html=1;align=center;verticalAlign=middle;fontSize=17;fillColor=none;strokeColor=none;"><mxGeometry x="170" y="429" width="80" height="22" as="geometry"/></mxCell>
+
+        <!-- Right output labels (control left-edge x=910; bus rx_data left-edge x=945) -->
+        <mxCell id="io-txready" value="tx_ready" vertex="1" parent="1" style="text;html=1;align=center;verticalAlign=middle;fontSize=17;fillColor=none;strokeColor=none;"><mxGeometry x="910" y="245" width="78" height="22" as="geometry"/></mxCell>
+        <mxCell id="io-txserial" value="tx_serial" vertex="1" parent="1" style="text;html=1;align=center;verticalAlign=middle;fontSize=17;fillColor=none;strokeColor=none;"><mxGeometry x="910" y="279" width="80" height="22" as="geometry"/></mxCell>
+        <mxCell id="io-rxdata" value="rx_data"  vertex="1" parent="1" style="text;html=1;align=center;verticalAlign=middle;fontSize=17;fillColor=none;strokeColor=none;"><mxGeometry x="945" y="407" width="78" height="22" as="geometry"/></mxCell>
+        <mxCell id="io-rxvalid" value="rx_valid" vertex="1" parent="1" style="text;html=1;align=center;verticalAlign=middle;fontSize=17;fillColor=none;strokeColor=none;"><mxGeometry x="910" y="429" width="72" height="22" as="geometry"/></mxCell>
+        <mxCell id="io-rxerror" value="rx_error" vertex="1" parent="1" style="text;html=1;align=center;verticalAlign=middle;fontSize=17;fillColor=none;strokeColor=none;"><mxGeometry x="910" y="451" width="72" height="22" as="geometry"/></mxCell>
+
+        <!-- Internal wires -->
+        <mxCell id="e-txtick" value="tick" edge="1" parent="1" source="txtick" target="txfsm"
+          style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#000000;strokeWidth=1.5;labelBackgroundColor=#ffffff;fontStyle=2;fontSize=13;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;"><mxGeometry relative="1" as="geometry"><mxPoint x="24" y="0" as="offset"/></mxGeometry></mxCell>
+        <mxCell id="e-sync" edge="1" parent="1" source="sync" target="rxfsm"
+          style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-rxtick" value="tick" edge="1" parent="1" source="rxtick" target="rxfsm"
+          style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#000000;strokeWidth=1.5;labelBackgroundColor=#ffffff;fontStyle=2;fontSize=13;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;"><mxGeometry relative="1" as="geometry"><mxPoint x="24" y="0" as="offset"/></mxGeometry></mxCell>
+
+        <!-- Left inputs -->
+        <mxCell id="e-txdata" edge="1" parent="1" source="io-txdata" target="txfsm"
+          style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.31;entryDx=0;entryDy=0;"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-txvalid" edge="1" parent="1" source="io-txvalid" target="txfsm"
+          style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.69;entryDx=0;entryDy=0;"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-clk" edge="1" parent="1" source="io-clk" target="outer"
+          style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.484;entryDx=0;entryDy=0;"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-rstn" edge="1" parent="1" source="io-rstn" target="outer"
+          style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.571;entryDx=0;entryDy=0;"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-rxserial" edge="1" parent="1" source="io-rxserial" target="sync"
+          style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Right outputs -->
+        <mxCell id="e-txready" edge="1" parent="1" source="txfsm" target="io-txready"
+          style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=block;endFill=1;exitX=1;exitY=0.31;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-txserial" edge="1" parent="1" source="txfsm" target="io-txserial"
+          style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=block;endFill=1;exitX=1;exitY=0.69;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-rxdata" edge="1" parent="1" source="rxfsm" target="io-rxdata"
+          style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=block;endFill=1;exitX=1;exitY=0.26;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-rxvalid" edge="1" parent="1" source="rxfsm" target="io-rxvalid"
+          style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-rxerror" edge="1" parent="1" source="rxfsm" target="io-rxerror"
+          style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=block;endFill=1;exitX=1;exitY=0.74;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Bus-width ticks (8-bit) on the external stub, clear of boundary and arrowhead -->
+        <mxCell id="bus-tx" edge="1" parent="1"
+          style="endArrow=none;startArrow=none;html=1;strokeColor=#000000;strokeWidth=1.5;"><mxGeometry relative="1" as="geometry"><mxPoint x="248" y="265" as="sourcePoint"/><mxPoint x="262" y="247" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="busn-tx" value="8" vertex="1" parent="1"
+          style="text;html=1;align=center;fontStyle=2;fontSize=13;fillColor=none;strokeColor=none;"><mxGeometry x="245" y="224" width="20" height="18" as="geometry"/></mxCell>
+        <mxCell id="bus-rx" edge="1" parent="1"
+          style="endArrow=none;startArrow=none;html=1;strokeColor=#000000;strokeWidth=1.5;"><mxGeometry relative="1" as="geometry"><mxPoint x="898" y="427" as="sourcePoint"/><mxPoint x="912" y="409" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="busn-rx" value="8" vertex="1" parent="1"
+          style="text;html=1;align=center;fontStyle=2;fontSize=13;fillColor=none;strokeColor=none;"><mxGeometry x="895" y="386" width="20" height="18" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

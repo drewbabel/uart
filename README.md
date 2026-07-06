@@ -60,11 +60,11 @@ Properties proven in formal:
 Every module builds from the top-level Makefile.
 
 ```
-make MOD=uart_rx        # run a module's testbench
-make wave MOD=uart_rx   # run the testbench and open the waveform in Surfer
-make formal MOD=uart_rx # run the module's SymbiYosys proof
-make cocotb             # run the top-level cocotb loopback test
-./synth_stats.sh uart   # report a module's synthesis cost
+make MOD=uart_rx         # run a module's testbench
+make wave MOD=uart_rx    # run the testbench and open the waveform in Surfer
+make formal MOD=uart_rx  # run the module's SymbiYosys proof
+make cocotb              # run the top-level cocotb loopback test
+./synth_stats.sh uart    # report a module's synthesis cost
 ```
 
 ## Synthesis
