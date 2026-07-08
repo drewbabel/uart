@@ -12,6 +12,15 @@ A configurable UART core written in SystemVerilog.
 
 ![Block diagram](docs/block_diagram.svg)
 
+## Parameters
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `CLK_FREQ_HZ` | `100_000_000` | System clock frequency |
+| `BAUD_RATE` | `115_200` | UART baud rate |
+| `OVERSAMPLE` | `16` | Receiver oversampling factor |
+| `DATA_BITS` | `8` | Data width |
+
 ## Interface
 
 | Signal | Direction | Width | Description |
@@ -26,15 +35,6 @@ A configurable UART core written in SystemVerilog.
 | `rx_data` | out | `DATA_BITS` | Received byte |
 | `rx_valid` | out | 1 | One-cycle pulse on valid receive |
 | `rx_error` | out | 1 | One-cycle pulse on framing error |
-
-## Parameters
-
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `CLK_FREQ_HZ` | `100_000_000` | System clock frequency |
-| `BAUD_RATE` | `115_200` | UART baud rate |
-| `OVERSAMPLE` | `16` | Receiver oversampling factor |
-| `DATA_BITS` | `8` | Data width |
 
 ## Verification
 
