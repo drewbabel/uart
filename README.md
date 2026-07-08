@@ -71,13 +71,13 @@ make cocotb              # run the top-level cocotb loopback test
 
 Synthesized for the Digilent Basys 3 (Xilinx Artix-7).
 
-| Module | LUTs | Flip-flops | Carry cells | I/O buffers |
-|--------|------|------------|-------------|-------------|
-| `synchronizer` | 0 | 2 | 0 | 3 |
-| `tick_gen` | 2 | 3 | 1 | 3 |
-| `uart_tx` | 30 | 26 | 4 | 13 |
-| `uart_rx` | 30 | 34 | 4 | 13 |
-| `uart` | 59 | 60 | 8 | 24 |
+| Module | LUTs | Flip-flops | Carry cells |
+|--------|------|------------|-------------|
+| `synchronizer` | 0 | 2 | 0 |
+| `tick_gen` | 2 | 3 | 1 |
+| `uart_tx` | 30 | 26 | 4 |
+| `uart_rx` | 32 | 34 | 4 |
+| `uart` | 63 | 60 | 8 |
 
 ### Tool versions
 
