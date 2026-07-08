@@ -1,4 +1,4 @@
-# Renders loopback_waveform.png (the README waveform) from a simulation CSV, wave.csv
+# Renders loopback_waveform.svg (the README waveform) from a simulation CSV, wave.csv
 # Regenerate the whole figure from the repo root:
 #   iverilog -g2012 -s wave_tb -o wave.vvp rtl/*.sv docs/wave_tb.sv && vvp wave.vvp
 #   python3 docs/loopback_waveform.py
@@ -30,7 +30,7 @@ lane_h, gap = 0.72, 0.55
 pitch = lane_h + gap
 
 fig, ax = plt.subplots(figsize=(13, 0.62 * nlanes + 1.4))
-BLUE, RED, GREY = '#2b6cb0', '#c0392b', '#dfe6ee'
+SIG, GREY = '#08306b', '#dfe6ee'
 
 def base_of(lane_from_top):
     return (nlanes - 1 - lane_from_top) * pitch
@@ -39,26 +39,27 @@ for i, (name, vals) in enumerate(bits):
     base = base_of(i)
     seg = vals[a:b] + [vals[b - 1]]
     ax.axhline(base, color=GREY, lw=0.8, zorder=0)
-    ax.step(x, [base + max(v, 0) * lane_h for v in seg], where='post', color=BLUE, lw=1.8, zorder=3)
-    ax.text(a - 1.2, base + lane_h / 2, name, ha='right', va='center',
+    ax.step(x, [base + max(v, 0) * lane_h for v in seg], where='post', color=SIG, lw=1.8, zorder=3)
+    ax.text(a - 20, base + lane_h / 2, name, ha='center', va='center',
             fontsize=11, family='monospace')
 
 # rx_data as a bus lane (bottom)
 base = base_of(nlanes - 1)
 top, bot = base + lane_h, base
-ax.text(a - 1.2, base + lane_h / 2, 'rx_data', ha='right', va='center',
+ax.text(a - 20, base + lane_h / 2, 'rx_data', ha='center', va='center',
         fontsize=11, family='monospace')
 seg_start = a
 for i in range(a + 1, b + 1):
     if i == b or rxd[i] != rxd[i - 1]:
         val = rxd[seg_start]
-        ax.plot([seg_start, i], [top, top], color=RED, lw=1.7, zorder=3)
-        ax.plot([seg_start, i], [bot, bot], color=RED, lw=1.7, zorder=3)
-        ax.plot([seg_start, seg_start], [bot, top], color=RED, lw=1.2, zorder=3)
+        ax.plot([seg_start, i], [top, top], color=SIG, lw=1.7, zorder=3)
+        ax.plot([seg_start, i], [bot, bot], color=SIG, lw=1.7, zorder=3)
+        ax.plot([seg_start, seg_start], [bot, top], color=SIG, lw=1.2, zorder=3)
+        ax.plot([i, i], [bot, top], color=SIG, lw=1.2, zorder=3)
         if i - seg_start >= 4:
             label = "0x??" if val < 0 else f"0x{val:02X}"
             ax.text((seg_start + i) / 2, base + lane_h / 2, label,
-                    ha='center', va='center', fontsize=9.5, family='monospace', color=RED)
+                    ha='center', va='center', fontsize=9.5, family='monospace', color=SIG)
         seg_start = i
 
 # Annotate the tx_serial frame fields (start / D0..D7 / stop)
@@ -74,7 +75,7 @@ if start_idx is not None:
                 fontsize=7.5, color='#6b7d90', family='monospace')
     ax.axvline(start_idx + 10 * CPB, color='#b7c4d4', lw=0.7, ls=(0, (3, 3)), zorder=1)
 
-ax.set_xlim(a - 7, b + 1)
+ax.set_xlim(a - 34, b + 1)
 ax.set_ylim(-0.4, base_of(0) + lane_h + 0.4)
 ax.set_yticks([])
 ax.set_xlabel('clock cycles', fontsize=10)
@@ -85,5 +86,5 @@ for s in ('top', 'right', 'left'):
     ax.spines[s].set_visible(False)
 ax.set_title('UART Loopback of a Single Frame', fontsize=13, pad=16)
 plt.tight_layout()
-plt.savefig('loopback_waveform.png', dpi=150, bbox_inches='tight')
-print('wrote loopback_waveform.png; window cycles', a, '..', b, 'rx_valid at', rxv_idx)
+plt.savefig('loopback_waveform.svg', bbox_inches='tight', facecolor='white')
+print('wrote loopback_waveform.svg; window cycles', a, '..', b, 'rx_valid at', rxv_idx)

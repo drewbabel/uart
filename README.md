@@ -10,7 +10,7 @@ A configurable UART core written in SystemVerilog.
  
  Every module has a self-checking testbench, the transmitter and receiver each carry a SymbiYosys formal proof, and the whole core is verified in loopback both in simulation and on a Basys 3 FPGA.
 
-![Block diagram](docs/block_diagram.png)
+![Block diagram](docs/block_diagram.svg)
 
 ## Interface
 
@@ -53,7 +53,7 @@ Properties proven in formal:
 
 ## Results
 
-![Loopback waveform](docs/loopback_waveform.png)
+![Loopback waveform](docs/loopback_waveform.svg)
 
 ## Building and running
 
