@@ -65,6 +65,7 @@ make wave MOD=uart_rx    # run the testbench and open the waveform in Surfer
 make formal MOD=uart_rx  # run the module's SymbiYosys proof
 make cocotb              # run the top-level cocotb loopback test
 ./synth_stats.sh uart    # report a module's synthesis cost
+./fmax.sh uart tt_uart clk        # fmax and utilization
 ```
 
 ## Synthesis
@@ -78,6 +79,14 @@ Synthesized for the Digilent Basys 3 (Xilinx Artix-7).
 | `uart_tx` | 30 | 26 | 4 |
 | `uart_rx` | 32 | 34 | 4 |
 | `uart` | 63 | 60 | 8 |
+
+### Post-route timing
+
+`fmax.sh` places and routes the core in a registered-boundary harness and reports the maximum clock frequency. The frequency comes from the open nextpnr-xilinx flow, which is experimental and not vendor signed timing analysis.
+
+| Module | LUTs | Flip-flops | Block RAMs | Fmax |
+|--------|------|------------|------------|------|
+| `uart` | 63 | 60 | 0 | 277 MHz |
 
 ### Tool versions
 
