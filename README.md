@@ -12,6 +12,25 @@ A configurable UART core written in SystemVerilog.
 
 ![Block diagram](docs/block_diagram.svg)
 
+## Verification
+
+| Module | Method |
+|--------|--------|
+| `synchronizer` | Self-checking testbench |
+| `tick_gen` | Self-checking testbench |
+| `uart_tx` | Self-checking testbench + SymbiYosys proofs |
+| `uart_rx` | Self-checking testbench + SymbiYosys proofs |
+| `uart` | cocotb loopback + FPGA validation |
+
+Properties proven in formal:
+- Transmit interface protocol correctness (`tx_ready` handshake behavior)
+- Stable framing behavior and idle-line enforcement
+- Receiver framing correctness under oversampling assumptions
+
+## Results
+
+![Loopback waveform](docs/loopback_waveform.svg)
+
 ## Parameters
 
 | Parameter | Default | Description |
@@ -35,25 +54,6 @@ A configurable UART core written in SystemVerilog.
 | `rx_data` | out | `DATA_BITS` | Received byte |
 | `rx_valid` | out | 1 | One-cycle pulse on valid receive |
 | `rx_error` | out | 1 | One-cycle pulse on framing error |
-
-## Verification
-
-| Module | Method |
-|--------|--------|
-| `synchronizer` | Self-checking testbench |
-| `tick_gen` | Self-checking testbench |
-| `uart_tx` | Self-checking testbench + SymbiYosys proofs |
-| `uart_rx` | Self-checking testbench + SymbiYosys proofs |
-| `uart` | cocotb loopback + FPGA validation |
-
-Properties proven in formal:
-- Transmit interface protocol correctness (`tx_ready` handshake behavior)
-- Stable framing behavior and idle-line enforcement
-- Receiver framing correctness under oversampling assumptions
-
-## Results
-
-![Loopback waveform](docs/loopback_waveform.svg)
 
 ## Building and running
 
