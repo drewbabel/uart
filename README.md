@@ -2,13 +2,12 @@
 
 [![CI](https://github.com/drewbabel/uart/actions/workflows/ci.yml/badge.svg)](https://github.com/drewbabel/uart/actions/workflows/ci.yml)
 
-A configurable UART core written in SystemVerilog.
+A configurable 8N1 UART core in SystemVerilog, verified in loopback on a Basys 3, with:
 
- The core transmits and receives 8N1 serial data, with the transmitter serializing a parallel byte behind start and stop bits, and the receiver oversampling the incoming line to recover each byte and flag framing errors. 
- 
- A tick generator divides the system clock down to the baud rate and the receiver's oversample rate, and a two-flop synchronizer guards the asynchronous receive input against metastability. 
- 
- Every module has a self-checking testbench, the transmitter and receiver each carry a SymbiYosys formal proof, and the whole core is verified in loopback both in simulation and on a Basys 3 FPGA.
+- A transmitter that serializes a parallel byte behind start and stop bits through a `tx_ready` handshake.
+- A receiver that oversamples the incoming line to recover each byte and flags framing errors.
+- A tick generator dividing the system clock to the baud rate and the receiver oversample rate.
+- A two-flop synchronizer guarding the asynchronous receive input against metastability.
 
 ![Block diagram](docs/block_diagram.svg)
 
@@ -22,42 +21,23 @@ A configurable UART core written in SystemVerilog.
 | `uart_rx` | Self-checking testbench + SymbiYosys proofs |
 | `uart` | cocotb loopback + FPGA validation |
 
-Properties proven in formal:
-- Transmit interface protocol correctness (`tx_ready` handshake behavior)
-- Stable framing behavior and idle-line enforcement
-- Receiver framing correctness under oversampling assumptions
+The formal proofs establish the transmit `tx_ready` handshake protocol, stable framing with idle-line enforcement, and receiver framing correctness under the oversampling assumptions.
 
-## Results
+## Implementation
 
-![Loopback waveform](docs/loopback_waveform.svg)
+Synthesized for the Xilinx Artix-7 XC7A35T through Yosys and nextpnr-xilinx.
 
-## Parameters
+| Module | LUTs | Flip-flops | Fmax |
+|--------|------|------------|------|
+| `synchronizer` | 0 | 2 | |
+| `tick_gen` | 2 | 3 | |
+| `uart_tx` | 25 | 26 | 316 MHz |
+| `uart_rx` | 32 | 34 | 296 MHz |
+| `uart` | 63 | 60 | |
 
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `CLK_FREQ_HZ` | `100_000_000` | System clock frequency |
-| `BAUD_RATE` | `115_200` | UART baud rate |
-| `OVERSAMPLE` | `16` | Receiver oversampling factor |
-| `DATA_BITS` | `8` | Data width |
-
-## Interface
-
-| Signal | Direction | Width | Description |
-|--------|-----------|-------|-------------|
-| `clk` | in | 1 | System clock |
-| `rst_n` | in | 1 | Synchronous active-low reset |
-| `tx_data` | in | `DATA_BITS` | Byte to transmit |
-| `tx_valid` | in | 1 | Assert when `tx_ready` is high to start transmission |
-| `tx_ready` | out | 1 | Transmitter ready for next byte |
-| `tx_serial` | out | 1 | UART transmit line (idle high) |
-| `rx_serial` | in | 1 | UART receive line (idle high) |
-| `rx_data` | out | `DATA_BITS` | Received byte |
-| `rx_valid` | out | 1 | One-cycle pulse on valid receive |
-| `rx_error` | out | 1 | One-cycle pulse on framing error |
+`fmax.sh` places and routes each module in a registered-boundary harness. The frequencies come from nextpnr-xilinx, an experimental open-source flow with no vendor-signed timing analysis.
 
 ## Building and running
-
-Every module builds from the top-level Makefile.
 
 ```
 make MOD=uart_rx                    # run a module's testbench
@@ -67,27 +47,6 @@ make cocotb                         # run the top-level cocotb loopback test
 ./synth_stats.sh uart               # report a module's synthesis cost
 ./fmax.sh uart_tx tt_uart_tx clk    # fmax and utilization
 ```
-
-## Synthesis
-
-Synthesized for the Digilent Basys 3 (Xilinx Artix-7).
-
-| Module | LUTs | Flip-flops | Carry cells |
-|--------|------|------------|-------------|
-| `synchronizer` | 0 | 2 | 0 |
-| `tick_gen` | 2 | 3 | 1 |
-| `uart_tx` | 30 | 26 | 4 |
-| `uart_rx` | 32 | 34 | 4 |
-| `uart` | 63 | 60 | 8 |
-
-### Post-route timing
-
-`fmax.sh` places and routes each module in a registered-boundary harness and reports the maximum clock frequency. This data relies on the experimental nextpnr-xilinx open-source toolchain, meaning frequencies are unverified and lack vendor-signed timing analysis.
-
-| Module | LUTs | Flip-flops | Block RAMs | Fmax |
-|--------|------|------------|------------|------|
-| `uart_tx` | 25 | 26 | 0 | 316 MHz |
-| `uart_rx` | 32 | 34 | 0 | 296 MHz |
 
 ### Tool versions
 
