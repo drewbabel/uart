@@ -43,6 +43,8 @@ Synthesized for the Xilinx Artix-7 XC7A35T through Yosys and nextpnr-xilinx.
 make MOD=uart_rx                    # run a module's testbench
 make wave MOD=uart_rx               # run the testbench and open the waveform in Surfer
 make formal MOD=uart_rx             # run the module's SymbiYosys proof
+make trace MOD=uart_rx              # print a formal counterexample as text
+make view-formal MOD=uart_rx        # open a formal waveform in Surfer
 make cocotb                         # run the top-level cocotb loopback test
 ./synth_stats.sh uart               # report a module's synthesis cost
 ./fmax.sh uart_tx tt_uart_tx clk    # fmax and utilization
