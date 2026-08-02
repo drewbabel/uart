@@ -1,4 +1,3 @@
-// Basys 3 demo harness for the UART transceiver.
 // Controls:
 //   sw[7:0]  - the byte to send (shown in hex on the two left displays)
 //   BTNU (top button)     - press once to send that byte (debounced -> one press, one byte)

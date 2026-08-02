@@ -1,4 +1,3 @@
-// UART TX harness
 module tt_uart_tx (
     input  logic clk,
     input  logic rst_n,

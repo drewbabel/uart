@@ -25,17 +25,17 @@ The formal proofs establish the transmit `tx_ready` handshake protocol, stable f
 
 ## Implementation
 
-Synthesized for the Xilinx Artix-7 XC7A35T through Yosys and nextpnr-xilinx.
+Utilization comes from AMD Vivado 2026.1 out-of-context synthesis for the Xilinx Artix-7 XC7A35T, and the frequencies come from Vivado place-and-route of the `fmax/` harnesses.
 
 | Module | LUTs | Flip-flops | Fmax |
 |--------|------|------------|------|
 | `synchronizer` | 0 | 2 | |
-| `tick_gen` | 2 | 3 | |
-| `uart_tx` | 25 | 26 | 316 MHz |
-| `uart_rx` | 32 | 34 | 296 MHz |
-| `uart` | 63 | 60 | |
+| `tick_gen` | 3 | 3 | |
+| `uart_tx` | 29 | 26 | 318.5 MHz |
+| `uart_rx` | 34 | 30 | 315.8 MHz |
+| `uart` | 57 | 56 | |
 
-`fmax.sh` places and routes each module in a registered-boundary harness. The frequencies come from nextpnr-xilinx, an experimental open-source flow with no vendor-signed timing analysis.
+`fmax.sh` places and routes each module in a registered-boundary harness, and `vivado/fmax.tcl` drives the same harnesses to reproduce the frequencies above.
 
 ## Building and running
 
@@ -46,7 +46,6 @@ make formal MOD=uart_rx             # run the module's SymbiYosys proof
 make trace MOD=uart_rx              # print a formal counterexample as text
 make view-formal MOD=uart_rx        # open a formal waveform in Surfer
 make cocotb                         # run the top-level cocotb loopback test
-./synth_stats.sh uart               # report a module's synthesis cost
 ./fmax.sh uart_tx tt_uart_tx clk    # fmax and utilization
 ```
 

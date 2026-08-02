@@ -1,6 +1,6 @@
 // Pins (basys3 host_loopback.xdc): clk=W5 (100 MHz), rst_btn=BTNC(U18),
 //   rx_serial=RsRx(B18, PC->FPGA), tx_serial=RsTx(A18, FPGA->PC),
-//   led[7:0]=received-byte mirror, led_err=latched framing error (led[15]).
+//   led[7:0]=received-byte mirror, led_err=latched framing error (led[15])
 
 module host_loopback_top #(
     parameter int CLK_FREQ_HZ = 100_000_000,
