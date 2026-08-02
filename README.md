@@ -25,17 +25,17 @@ The formal proofs establish the transmit `tx_ready` handshake protocol, stable f
 
 ## Implementation
 
-Synthesized for the Xilinx Artix-7 XC7A35T through Yosys and nextpnr-xilinx.
+Synthesized for the Xilinx Artix-7 XC7A35T. Cell counts come from Yosys, and the frequencies come from AMD Vivado 2026.1 place-and-route.
 
 | Module | LUTs | Flip-flops | Fmax |
 |--------|------|------------|------|
 | `synchronizer` | 0 | 2 | |
 | `tick_gen` | 2 | 3 | |
-| `uart_tx` | 25 | 26 | 316 MHz |
-| `uart_rx` | 32 | 34 | 296 MHz |
+| `uart_tx` | 25 | 26 | 318.5 MHz |
+| `uart_rx` | 32 | 34 | 315.8 MHz |
 | `uart` | 63 | 60 | |
 
-`fmax.sh` places and routes each module in a registered-boundary harness. The frequencies come from nextpnr-xilinx, an experimental open-source flow with no vendor-signed timing analysis.
+`fmax.sh` places and routes each module in a registered-boundary harness, and `vivado/fmax.tcl` drives the same harnesses to reproduce the frequencies above.
 
 ## Building and running
 
