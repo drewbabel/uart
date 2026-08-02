@@ -6,7 +6,7 @@ jobs:
   testbenches:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install Icarus Verilog
         run: |
           sudo grep -rlZ packages.microsoft.com /etc/apt/sources.list.d/ 2>/dev/null | sudo xargs -0 -r rm -f
@@ -32,7 +32,7 @@ jobs:
   formal:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install OSS CAD Suite (yosys + sby + solvers)
         uses: YosysHQ/setup-oss-cad-suite@v4
         with:
