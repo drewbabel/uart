@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps  // <unit>/<precision>
+`timescale 1ns / 1ps
 
 module seven_seg_cntrl_tb ();
 
@@ -27,7 +27,7 @@ module seven_seg_cntrl_tb ();
       .an(an)
   );
 
-  // Independent glyph reference (active-high, bit order g f e d c b a).
+  // Independent glyph reference (active-high, bit order g f e d c b a)
   function automatic logic [6:0] exp_glyph(input logic [3:0] v);
     case (v)
       4'h0: exp_glyph = 7'b011_1111;
