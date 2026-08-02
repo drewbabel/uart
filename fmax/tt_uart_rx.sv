@@ -1,4 +1,3 @@
-// UART RX harness
 module tt_uart_rx (
     input  logic clk,
     input  logic rst_n,
