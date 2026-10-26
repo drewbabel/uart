@@ -32,8 +32,8 @@ Utilization comes from AMD Vivado 2026.1 out-of-context synthesis for the Xilinx
 | `synchronizer` | 0 | 2 | |
 | `tick_gen` | 3 | 3 | |
 | `uart_tx` | 29 | 26 | 318.5 MHz |
-| `uart_rx` | 34 | 30 | 315.8 MHz |
-| `uart` | 57 | 56 | |
+| `uart_rx` | 29 | 37 | 299.0 MHz |
+| `uart` | 60 | 63 | |
 
 `fmax.sh` places and routes each module in a registered-boundary harness, and `vivado/fmax.tcl` drives the same harnesses to reproduce the frequencies above.
 
