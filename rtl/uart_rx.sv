@@ -12,9 +12,24 @@ module uart_rx #(
     output logic rx_error
 );
 
-  // (A+B/2)/B ensures correctly rounded
-  localparam int ClksPerBit = (CLK_FREQ_HZ + BAUD_RATE / 2) / BAUD_RATE;
-  localparam int ClksPerOversample = (ClksPerBit + OVERSAMPLE / 2) / OVERSAMPLE;
+  function automatic int gcd(input int a, input int b);
+    int t;
+    while (b != 0) begin
+      t = b;
+      b = a % b;
+      a = t;
+    end
+    gcd = a;
+  endfunction
+
+  // Ticks per clock
+  localparam int TickRate = BAUD_RATE * OVERSAMPLE;
+  localparam int Num = TickRate / gcd(TickRate, CLK_FREQ_HZ);
+  localparam int Den = CLK_FREQ_HZ / gcd(TickRate, CLK_FREQ_HZ);
+
+  if (CLK_FREQ_HZ < TickRate) begin : g_rate_check
+    $error("CLK_FREQ_HZ below BAUD_RATE * OVERSAMPLE");
+  end
 
   typedef enum logic [1:0] {
     IDLE,
@@ -28,6 +43,7 @@ module uart_rx #(
   logic in_prev;
   logic tick;
   logic tick_clr;
+  logic [$clog2(Den+1)-1:0] phase;
   logic [$clog2(OVERSAMPLE)-1:0] tick_cnt;
   logic [$clog2(DATA_BITS):0] data_cnt;
 
@@ -37,14 +53,14 @@ module uart_rx #(
       .q  (in)
   );
 
-  tick_gen #(
-      .DIVISOR(ClksPerOversample)
-  ) oversample_tick (
-      .clk  (clk),
-      .rst_n(rst_n),
-      .clr  (tick_clr),
-      .tick (tick)
-  );
+  always_ff @(posedge clk) begin
+    if (!rst_n) phase <= '0;
+    else if (tick_clr) phase <= '0;
+    else if (tick) phase <= phase - $bits(phase)'(Den - Num);
+    else phase <= phase + $bits(phase)'(Num);
+  end
+
+  assign tick = (phase >= $bits(phase)'(Den - Num));
 
   always_ff @(posedge clk) begin
     rx_valid <= 1'b0;
